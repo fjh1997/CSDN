@@ -36,6 +36,31 @@ tags:
 
 ---
 
+## 历史版本从哪里下
+
+当前版本已经高于 patch 上限时，需要先**降回可用版本**，再立刻做防更新。不要去搜来路不明的「绿色版 / 免更新破解包」；社区有专门归档安装包的仓库（Release 资产，可自行核对哈希）：
+
+| 客户端 | 历史版本仓库 |
+|--------|----------------|
+| **QQNT** | [PRO-2684/qqnt-version-history](https://github.com/PRO-2684/qqnt-version-history) |
+| **微信 Windows** | [cscnk52/wechat-windows-versions](https://github.com/cscnk52/wechat-windows-versions) |
+
+配合本文目标上限时，优先找：
+
+- QQNT：`9.9.20-36330`（或 PR / 工具说明支持的最近一档）
+- 微信：`4.1.9.30`（Weixin 4.x）
+
+建议流程：
+
+1. 卸载当前过高版本（或至少退出客户端）  
+2. 从上述仓库的 **Releases** 下载对应安装包  
+3. 安装完成后**先不要登录**，立刻做本文后面的 hosts / 清缓存 / 锁目录  
+4. 再登录，并运行 RevokeMsgPatcher  
+
+> 仓库由第三方维护，安装包是否完整、是否被服务端拒绝登录，以你本机实测为准；下载后尽量核对 Release 里公布的校验信息。
+
+---
+
 ## 先确认当前版本
 
 ### QQNT
@@ -316,7 +341,9 @@ ipconfig /flushdns
 
 以目标 **QQNT 9.9.20-36330**、**微信 4.1.9.30** 为例：
 
-1. **先确认当前就是目标版本**（或从可信来源装回目标版本；注意安装包来源安全）。  
+1. **先确认当前就是目标版本**；若更高，从历史版本仓库装回：
+   - QQNT：[PRO-2684/qqnt-version-history](https://github.com/PRO-2684/qqnt-version-history)
+   - 微信：[cscnk52/wechat-windows-versions](https://github.com/cscnk52/wechat-windows-versions)  
 2. **立刻**改 hosts（QQNT 的 `qqpatch` + 微信的 `dldir`，都带 `::1`）。  
 3. **立刻**清 QQNT `versions` 里多余版本 + 清空 `readyVersion`。  
 4. **立刻**清微信 `xwechat\update`，并锁写 + 拦 `WeixinUpdate.exe`。  
